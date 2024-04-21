@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  express-app:
+    build: .
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: 'mongodb://admin:admin@localhost:27019/mydatabase?authSource=admin&directConnection=true'
+      SECRET_KEY: 'PasswordConnect-Hash'
+
+  db:
+    image: prismagraphql/mongo-single-replica:5.0.3
+    ports:
+      - '27019:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
