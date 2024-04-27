@@ -28,7 +28,7 @@ router.post('/register', UserController.register);
 router.post('/login', UserController.login);
 router.get('/current', authenticateToken, UserController.current);
 router.get('/users/:id', authenticateToken, UserController.getUserById);
-router.put('/users/:id', authenticateToken, UserController.updateUser);
+router.put('/users/:id', authenticateToken, uploads.single('avatar'), UserController.updateUser);
 
 // ! Роуты поста
 router.post('/posts', authenticateToken, PostController.createPost);
@@ -46,6 +46,6 @@ router.delete('/likes/:id', authenticateToken, LikeController.unlikePost);
 
 // ! Роуты подписок
 router.post('/follows', authenticateToken, FollowController.followUser);
-router.delete('/follows/:id', authenticateToken, FollowController.unFollowUser);
+router.delete('/unfollows/:id', authenticateToken, FollowController.unFollowUser);
 
 module.exports = router;
